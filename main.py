@@ -173,12 +173,12 @@ def main() -> None:
     application = Application.builder().token(v.api_token).build()
 
     # on different commands - answer in Telegram
-    application.add_handler(CommandHandler(["start", "help"], start))
-    application.add_handler(CommandHandler(["wasser", "w"], wasser))
-    application.add_handler(CommandHandler(["licht", "li"], licht))
-    application.add_handler(CommandHandler(["luft", "lu"], luft))
-    application.add_handler(CommandHandler(["plan", "p"], plan))
-    application.add_handler(CommandHandler(["qualitat", "q"], qualitat))
+    application.add_handler(CommandHandler(["start", "help"], start, filters=filters.User(v.allown_ids)))
+    application.add_handler(CommandHandler(["wasser", "w"], wasser), filters=filters.User(v.allown_ids))
+    application.add_handler(CommandHandler(["licht", "li"], licht), filters=filters.User(v.allown_ids))
+    application.add_handler(CommandHandler(["luft", "lu"], luft), filters=filters.User(v.allown_ids))
+    application.add_handler(CommandHandler(["plan", "p"], plan), filters=filters.User(v.allown_ids))
+    application.add_handler(CommandHandler(["qualitat", "q"], qualitat), filters=filters.User(v.allown_ids))
     # application.add_handler(CommandHandler(["bewässerung", "b"], wasser))
     # application.add_handler(CommandHandler("abstand", abstand))
 
