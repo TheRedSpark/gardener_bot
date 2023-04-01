@@ -67,7 +67,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         'Benutze /licht oder /li um den Pflanzen von der ferne Wasser zu geben \n'
         'Benutze /luft oder /lu um den Pflanzen von der ferne Wasser zu geben \n'
         'Benutze /bewasserung oder /b um den Pflanzen von der ferne Wasser zu geben \n'
-        'Benutze /plan oder /p um den Pflanzen von der ferne Wasser zu geben \n')
+        'Benutze /plan oder /p um den Pflanzen von der ferne Wasser zu geben \n'
+        'Benutze /qualität oder /q um die Luftqualität anzuzeigen \n')
 
 
 async def wasser(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -102,6 +103,14 @@ async def plan(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 update.effective_user.last_name, update.effective_user.language_code)
     await context.bot.send_message(update.effective_user.id,
                                    f'Hier bekommt du eine auswertung was der Plan für die nächsten Aktionen ist')  # Todo Licht Sensor auslesen
+
+
+async def qualitat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    userlogging(update.effective_user.id, update.effective_user.username, update.effective_message.chat_id,
+                update.effective_message.text_markdown, update.effective_message.id, update.effective_user.first_name,
+                update.effective_user.last_name, update.effective_user.language_code)
+    await context.bot.send_message(update.effective_user.id,
+                                   f'Hier bekommt du eine auswertung von den letzten Luftdaten')  # Todo Licht Sensor auslesen
 
 
 async def b_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -169,6 +178,7 @@ def main() -> None:
     application.add_handler(CommandHandler(["licht", "li"], licht))
     application.add_handler(CommandHandler(["luft", "lu"], luft))
     application.add_handler(CommandHandler(["plan", "p"], plan))
+    application.add_handler(CommandHandler(["qualität", "q"], qualitat))
     # application.add_handler(CommandHandler(["bewässerung", "b"], wasser))
     # application.add_handler(CommandHandler("abstand", abstand))
 
