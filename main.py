@@ -68,7 +68,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         'Benutze /luft oder /lu um den Pflanzen von der ferne Wasser zu geben \n'
         'Benutze /bewasserung oder /b um den Pflanzen von der ferne Wasser zu geben \n'
         'Benutze /plan oder /p um den Pflanzen von der ferne Wasser zu geben \n'
-        'Benutze /qualitat oder /q um die Luftqualität anzuzeigen \n')
+        'Benutze /qualitat oder /q um die Luftqualität anzuzeigen. \n')
 
 
 async def wasser(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -114,6 +114,9 @@ async def qualitat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def b_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    userlogging(update.effective_user.id, update.effective_user.username, update.effective_message.chat_id,
+                update.effective_message.text_markdown, update.effective_message.id, update.effective_user.first_name,
+                update.effective_user.last_name, update.effective_user.language_code)
     giesen_vara.clear()
     await update.message.reply_text(f"Wie viel ml möchtest du die Pfanze(n) gießen lassen? \n"
                                     f"Du kannt das Menu jederzeit abbrechen indem du /cancel benutzt",
@@ -137,6 +140,13 @@ async def b_frage(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     giesen_vara['Menge'] = zu_giesen_in_ml
     await context.bot.send_message(update.effective_user.id,
                                    f'Du wirst {giesen_vara["Menge"]} ml giesen')
+    reply_keyboard = [["Pflanze 1", "Pflanze 2", "Pflanze 3", "Pflanze 4"], ["Alle Pflanzen"]]
+    await update.message.reply_text(
+        "Sub-Menu",
+        reply_markup=ReplyKeyboardMarkup(
+            reply_keyboard, one_time_keyboard=True, input_field_placeholder="Bitte wähle"
+        ),
+    )
 
     return ConversationHandler.END
     # return B_ANTWORT
