@@ -68,7 +68,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         'Benutze /luft oder /lu um den Pflanzen von der ferne Wasser zu geben \n'
         'Benutze /bewasserung oder /b um den Pflanzen von der ferne Wasser zu geben \n'
         'Benutze /plan oder /p um den Pflanzen von der ferne Wasser zu geben \n'
-        'Benutze /qualität oder /q um die Luftqualität anzuzeigen \n')
+        'Benutze /qualitat oder /q um die Luftqualität anzuzeigen \n')
 
 
 async def wasser(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -178,7 +178,7 @@ def main() -> None:
     application.add_handler(CommandHandler(["licht", "li"], licht))
     application.add_handler(CommandHandler(["luft", "lu"], luft))
     application.add_handler(CommandHandler(["plan", "p"], plan))
-    application.add_handler(CommandHandler(["qualität", "q"], qualitat))
+    application.add_handler(CommandHandler(["qualitat", "q"], qualitat))
     # application.add_handler(CommandHandler(["bewässerung", "b"], wasser))
     # application.add_handler(CommandHandler("abstand", abstand))
 
