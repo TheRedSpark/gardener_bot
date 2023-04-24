@@ -35,6 +35,16 @@ B_START, B_FRAGE, B_ANTWORT, B_ENTSCHEIDUNG, B_CLOSEUP = range(5)
 giesen_vara = {'Menge': 0,
                'Pflanze': ''}
 
+pflanzen_config = {'Wassermenge': 0,
+                   'Lichtzyklus': '8-20Uhr',
+                   'isLicht': 'False',
+                   'Lüfterzyklus': '30min',
+                   'isLüfter': 'False',
+                   'Wasserstand': '44%',
+                   'Luftfeuchtigkeit': '40%',
+                   'Temperatur': '28C°',
+                   }
+
 
 def userlogging(user_id, username, message_chat_id, message_txt, message_id, first_name, last_name, land_code):
     mydb = mysql.connector.connect(
@@ -68,7 +78,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         'Benutze /luft oder /lu um den Pflanzen von der ferne Wasser zu geben \n'
         'Benutze /bewasserung oder /b um den Pflanzen von der ferne Wasser zu geben \n'
         'Benutze /plan oder /p um den Pflanzen von der ferne Wasser zu geben \n'
-        'Benutze /qualitat oder /q um die Luftqualität anzuzeigen. \n')
+        'Benutze /qualitat oder /q um die Luftqualität anzuzeigen. \n'
+        'Benutze /status oder /s um die Luftqualität anzuzeigen. \n'
+        'Benutze /photo oder /p um die Luftqualität anzuzeigen. \n')
 
 
 async def wasser(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
