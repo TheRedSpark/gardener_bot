@@ -117,6 +117,34 @@ async def plan(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                                    f'Hier bekommt du eine auswertung was der Plan für die nächsten Aktionen ist')  # Todo Licht Sensor auslesen
 
 
+async def status(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    userlogging(update.effective_user.id, update.effective_user.username, update.effective_message.chat_id,
+                update.effective_message.text_markdown, update.effective_message.id, update.effective_user.first_name,
+                update.effective_user.last_name, update.effective_user.language_code)
+    await context.bot.send_message(update.effective_user.id,
+                                   f'Die eingestellte Wassermenge ist :{pflanzen_config["Wassermenge"]} \n'
+                                   f'Der eingestellte Lichtzyklus ist: {pflanzen_config["Lichtzyklus"]} \n'
+                                   f'Der eingestellte Lüfterzyklus ist: {pflanzen_config["Lüfterzyklus"]} \n'
+                                   f'Der eingestellte Lichtzyklus ist: {pflanzen_config["Lüfterzyklus"]} \n')  # Todo Config anpassen
+
+pflanzen_config = {'Wassermenge': 0,
+                   'Lichtzyklus': '8-20Uhr',
+                   'isLicht': 'False',
+                   'Lüfterzyklus': '30min',
+                   'isLüfter': 'False',
+                   'Wasserstand': '44%',
+                   'Luftfeuchtigkeit': '40%',
+                   'Temperatur': '28C°',
+                   }
+
+async def photo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    userlogging(update.effective_user.id, update.effective_user.username, update.effective_message.chat_id,
+                update.effective_message.text_markdown, update.effective_message.id, update.effective_user.first_name,
+                update.effective_user.last_name, update.effective_user.language_code)
+
+    await context.bot.send_photo(update.effective_user.id, 'meme.jpg', 'Das ist eine premium Meme')
+
+
 async def qualitat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     userlogging(update.effective_user.id, update.effective_user.username, update.effective_message.chat_id,
                 update.effective_message.text_markdown, update.effective_message.id, update.effective_user.first_name,
@@ -196,11 +224,13 @@ def main() -> None:
 
     # on different commands - answer in Telegram
     application.add_handler(CommandHandler(["start", "help"], start, filters=filters.User(v.allown_ids)))
-    application.add_handler(CommandHandler(["wasser", "w"], wasser), filters=filters.User(v.allown_ids))
-    application.add_handler(CommandHandler(["licht", "li"], licht), filters=filters.User(v.allown_ids))
-    application.add_handler(CommandHandler(["luft", "lu"], luft), filters=filters.User(v.allown_ids))
-    application.add_handler(CommandHandler(["plan", "p"], plan), filters=filters.User(v.allown_ids))
-    application.add_handler(CommandHandler(["qualitat", "q"], qualitat), filters=filters.User(v.allown_ids))
+    application.add_handler(CommandHandler(["wasser", "w"], wasser, filters=filters.User(v.allown_ids)))
+    application.add_handler(CommandHandler(["licht", "li"], licht, filters=filters.User(v.allown_ids)))
+    application.add_handler(CommandHandler(["luft", "lu"], luft, filters=filters.User(v.allown_ids)))
+    application.add_handler(CommandHandler(["plan", "p"], plan, filters=filters.User(v.allown_ids)))
+    application.add_handler(CommandHandler(["qualitat", "q"], qualitat, filters=filters.User(v.allown_ids)))
+    application.add_handler(CommandHandler(["status", "s"], status, filters=filters.User(v.allown_ids)))
+    application.add_handler(CommandHandler(["photo", "p"], photo, filters=filters.User(v.allown_ids)))
     # application.add_handler(CommandHandler(["bewässerung", "b"], wasser))
     # application.add_handler(CommandHandler("abstand", abstand))
 
